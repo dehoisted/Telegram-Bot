@@ -4,11 +4,11 @@ using System.Net;
 
 namespace Telegram
 {
-    class TelegramBot
+    sealed class TelegramBot
     {
-        private string botid;
-        private string chatid;
-        private bool running;
+        private readonly string botid;
+        private readonly string chatid;
+        private readonly bool running;
 
         public TelegramBot(string aBotID, string aChatID)
         {
@@ -17,9 +17,16 @@ namespace Telegram
             running = true;
         }
 
-        protected string GetUrl(string BotID, string chatID, string msg)
+        public static int GetRand(int x, int y)
         {
-            string url = "https://api.telegram.org/bot" + botid + "/sendMessage?chat_id=" + chatID + "&text=" + msg;
+            Random rand = new Random();
+            int num = rand.Next(x, y);
+            return num;
+        }
+
+        private string GetUrl(string BotID, string chatID, string msg)
+        {
+            string url = "https://api.telegram.org/bot" + BotID + "/sendMessage?chat_id=" + chatID + "&text=" + msg;
             return url;
         }
 
@@ -27,7 +34,7 @@ namespace Telegram
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (HttpWebResponse response = (HttpWebResponse) request.GetResponse()) // If an exception thrown here then the bot ID passed in is invalid
             using (Stream stream = response.GetResponseStream())
             using (StreamReader reader = new StreamReader(stream))
             {
@@ -41,19 +48,13 @@ namespace Telegram
             GetReq(url);
         }
 
-        public int GetRand(int x, int y)
-        {
-            Random rand = new Random();
-            int num = rand.Next(x, y);
-            return num;
-        }
-
         public bool IsRunning()
         {
             if (running)
             {
                 return true;
             }
+
             return false;
         }
     }
