@@ -34,7 +34,7 @@ namespace Telegram
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-            using (HttpWebResponse response = (HttpWebResponse) request.GetResponse()) // If an exception thrown here then the bot ID passed in is invalid
+            using (HttpWebResponse response = (HttpWebResponse) request.GetResponse()) // If an exception thrown here then the bot id passed in is invalid
             using (Stream stream = response.GetResponseStream())
             using (StreamReader reader = new StreamReader(stream))
             {
