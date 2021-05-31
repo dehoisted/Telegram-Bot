@@ -6,6 +6,7 @@ namespace Telegram
 {
     sealed class TelegramBot
     {
+        public static int BotCount = 0;
         private readonly string botid;
         private readonly string chatid;
         private readonly bool running;
@@ -15,6 +16,7 @@ namespace Telegram
             botid = aBotID;
             chatid = aChatID;
             running = true;
+            BotCount++;
         }
 
         public static int GetRand(int x, int y)
@@ -34,7 +36,7 @@ namespace Telegram
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-            using (HttpWebResponse response = (HttpWebResponse) request.GetResponse()) // If an exception thrown here then the bot id passed in is invalid
+            using (HttpWebResponse response = (HttpWebResponse) request.GetResponse()) // If an exception thrown here then the bot ID passed in is invalid
             using (Stream stream = response.GetResponseStream())
             using (StreamReader reader = new StreamReader(stream))
             {
