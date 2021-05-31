@@ -13,11 +13,11 @@ namespace ConsoleApp
 
         static void Main()
         {
-            TelegramBot TBot = new TelegramBot("BOTID", "CHATID");
+            TelegramBot TBot = new TelegramBot("1850958171:AAGEygAAsxl_r5WkDBn-Qp5Wti6pMGSChbY", "-1001333610567");
             switch (TBot.IsRunning())
             {
                 case true:
-                    Console.WriteLine("Bot is running!");
+                    Console.WriteLine(TelegramBot.BotCount + " Bot is running!");
                     break;
 
                 case false:
