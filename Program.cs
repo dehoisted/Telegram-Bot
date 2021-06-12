@@ -1,4 +1,4 @@
-// Example
+// Example of Usage
 
 using System;
 using System.Threading;
